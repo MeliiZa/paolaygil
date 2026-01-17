@@ -147,6 +147,11 @@ body {
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 24px;
+      background-color: white;
+    }
+
+    .card-info{
+      width:50% !important;
     }
 
     input, select, button {
@@ -270,6 +275,7 @@ button {
     color: white;
     border-radius: 500px;
     font-weight: 600;
+    
 }
 
 
@@ -280,10 +286,9 @@ button {
 
         h1{
             font-size: calc(1.525rem+3.3vw);
-            color: greenyellow;
         }
 
-        .card {
+        .card-info {
             width: 400px !important;
         }   
         
@@ -291,7 +296,7 @@ button {
             height:900px !important;
         }
         .couple{
-            height:700px !important;
+            height:900px !important;
         }
         .text-detail{
             margin-bottom:30px;
@@ -305,9 +310,6 @@ button {
             height:300px !important;
         }
 
-        .card{
-          width:50px !important;
-        }
 
         .container.d-flex.align-items-center.justify-content-center.slogan {
           height: 300px !important;
