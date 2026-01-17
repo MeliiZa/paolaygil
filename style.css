@@ -176,8 +176,6 @@ body {
 
     h1{
         font-size: 4rem;
-        color: red;
-
     }
 
     .color-overlay{
@@ -309,11 +307,8 @@ button {
         .card{
           width:50px !important;
         }
-    }
 
-
-    @media (max-width: 480px) {
-      .container.d-flex.align-items-center.justify-content-center.slogan {
-        height: 300px !important;
-      }
+        .container.d-flex.align-items-center.justify-content-center.slogan {
+          height: 300px !important;
+        }
     }
