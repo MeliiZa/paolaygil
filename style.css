@@ -280,6 +280,7 @@ button {
 
         h1{
             font-size: calc(1.525rem+3.3vw);
+            color: greenyellow;
         }
 
         .card {
