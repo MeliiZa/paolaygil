@@ -303,4 +303,8 @@ button {
         .slogan{
             height:300px !important;
         }
+
+        .card{
+          width:50px !important;
+        }
     }
