@@ -303,15 +303,12 @@ button {
         }
         .icono{
             margin-top:.5em;
-            margin-bottom:0em !important;
-
+            margin-bottom:0em !important;sta
         }
-        .slogan{
-            height:300px !important;
-        }
-
-
         .container.d-flex.align-items-center.justify-content-center.slogan {
-          height: 300px !important;
+          height: 400px !important;
+        }
+        .story {
+          font-size: 26px;
         }
     }
