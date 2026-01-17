@@ -273,6 +273,7 @@ button {
     font-weight: 600;
 }
 
+
     @media (max-width: 768px){
         .masthead{
             min-height: 30vh;
@@ -307,4 +308,15 @@ button {
         .card{
           width:50px !important;
         }
+    }
+
+
+    @media (max-width: 480px) {
+      h1{
+        color:red !important;
+      }
+
+      .container.d-flex.align-items-center.justify-content-center.slogan {
+        height: 300px !important;
+      }
     }
