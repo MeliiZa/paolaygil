@@ -278,16 +278,19 @@ button {
     
 }
 
+label{
+  width:100%;
+  text-align:center;
+}
+
 
     @media (max-width: 768px){
         .masthead{
             min-height: 30vh;
         }
-
         h1{
             font-size: calc(1.525rem+3.3vw);
         }
-
         .card-info {
             width: 400px !important;
         }   

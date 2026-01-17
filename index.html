@@ -154,18 +154,20 @@
     <h2 id="title">Cargando...</h2>
     <p id="details"></p>
 
-    <form id="rsvp-form" style="display:none; margin-top:20px;">
+    <form class="mx-auto" id="rsvp-form" style="display:none; margin-top:20px;">
       <p id="existing-note" class="muted"></p>
 
       <label>
         Cuantas personas asistirán?
-        <br />
+        <br/>
         <select id="attending"></select>
       </label>
 
       <div id="guest-names" style="margin-top:16px;"></div>
+      <div class="button-box d-flex justify-content-center align-content-center"> 
+        <button type="submit">Confirma tu asistencia</button> 
+      </div>
 
-      <button type="submit">Confirma tu asistencia</button>
     </form>
 
     <p id="status" style="margin-top:16px;"></p>
