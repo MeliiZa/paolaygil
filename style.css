@@ -313,4 +313,7 @@ label{
         .story {
           font-size: 26px;
         }
+        .front {
+        font-size: 20px;
+        }
     }
