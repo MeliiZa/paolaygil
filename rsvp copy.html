@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Birthday Invite</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      /*padding: 40px;*/
+      /*max-width: 800px;*/
+      margin: auto;
+    }
+
+    h1, h2 {
+      margin-bottom: 8px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    input, select, button {
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    #guest-names input {
+      display: block;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+    <div class="p-5 text-center bg-image rounded-3" style="
+        background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        height: 400px;
+      ">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white">
+            <h1 class="mb-3">Paola Denisse y Gilberto</h1>
+            <h4 class="mb-3">Subheading</h4>
+            <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Hero -->
+<!-- Mapa -->
+<div class="container" id="misa-info"></div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 mb-1 mx-auto mb-2 text-center " id="misa-info-text">
+      <h3>Ceremonia Religiosa</h3>
+      <br>
+        Nuestra ceremonia religiosa sera en Parroquia de Nuestra Señora del Santísimo Rosario a las 4:00pm.
+ 
+          <br>
+          <br>Av. Miguel Hidalgo 2606, Aguila, 89230 Tampico, Tamps.
+          
+
+    </div>
+    <div class="col-lg-6 col-md-6  mb-1 mx-auto mb-2" id="mapa">
+          <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2smx!4v1768079157113!5m2!1sen!2smx!6m8!1m7!1srTSSW66Qf2WueNM30OhqmA!2m2!1d22.23939206202251!2d-97.8698932321879!3f173.73906193507312!4f-0.02192427833142574!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+               
+    </div>
+
+<div class="container" id="salon-info"></div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 mb-1 mx-auto mb-2 text-center " id="salon-info-text">
+      <h3>Recepción</h3>
+      <br>
+        Te esperamos en el Salon Paris a las 7:00pm.
+ 
+          <br>
+          <br>18 de Marzo 205, Primero de Mayo, 89450 Cd Madero, Tamps.
+          
+
+    </div>
+    <div class="col-lg-6 col-md-6  mb-1 mx-auto mb-2" id="mapa">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.738449138856!2d-97.84683978918623!3d22.250000379638205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d7f9db687ec029%3A0x7cb8f078091524d!2sParis%20Salon!5e0!3m2!1sen!2smx!4v1768079782391!5m2!1sen!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>"></iframe>
+               
+    </div>    
+
+<!-- Mapa -->
+
+
+
+  <!-- ========================= -->
+  <!-- EVENT DETAILS SECTION -->
+  <!-- ========================= -->
+  <div class="section" id="event-details">
+    <h1>🎉 My Birthday Bash!</h1>
+    <p>Date: January 25, 2026</p>
+    <p>Time: 6:00 PM</p>
+
+    <!-- Map (replace with your embed or image) -->
+    <div id="map">
+      <img src="https://via.placeholder.com/600x300?text=Map+Here" alt="Map to venue" style="width:100%;border-radius:8px;">
+    </div>
+
+    <!-- Photos (replace with your images) -->
+    <div id="photos" style="margin-top:16px;">
+      <img src="https://via.placeholder.com/150?text=Photo1" style="margin-right:8px;">
+      <img src="https://via.placeholder.com/150?text=Photo2" style="margin-right:8px;">
+      <img src="https://via.placeholder.com/150?text=Photo3">
+    </div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- RSVP SECTION -->
+  <!-- ========================= -->
+  <div class="section card" id="rsvp-section">
+    <h2 id="title">Loading...</h2>
+    <p id="details"></p>
+
+    <form id="rsvp-form" style="display:none; margin-top:20px;">
+      <p id="existing-note" class="muted"></p>
+
+      <label>
+        How many will attend?
+        <br />
+        <select id="attending"></select>
+      </label>
+
+      <div id="guest-names" style="margin-top:16px;"></div>
+
+      <button type="submit">Submit RSVP</button>
+    </form>
+
+    <p id="status" style="margin-top:16px;"></p>
+  </div>
+
+  <!-- ========================= -->
+  <!-- JS LOGIC -->
+  <!-- ========================= -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // --- 1. Create Supabase client ---
+    const db = supabase.createClient(
+      "https://javcvjdvnpmzoskqnxlk.supabase.co",
+      "sb_publishable_p_6Pj2HRuUfJxcWBG8nU5A_9soVjn0s"
+    );
+
+    // --- 2. Read invite code from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const inviteCode = params.get("code");
+
+    const titleEl = document.getElementById("title");
+    const detailsEl = document.getElementById("details");
+    const formEl = document.getElementById("rsvp-form");
+    const selectEl = document.getElementById("attending");
+    const statusEl = document.getElementById("status");
+    const guestNamesEl = document.getElementById("guest-names");
+    const existingNoteEl = document.getElementById("existing-note");
+
+    let currentInvite = null;
+
+    if (!inviteCode) {
+      // No code: generic view
+      titleEl.textContent = "Welcome! Please use your personal RSVP link to respond";
+      formEl.style.display = "none";
+    } else {
+      // Code present: load RSVP
+      loadInvite();
+    }
+
+    // --- Render guest name inputs ---
+    function renderGuestNameInputs(count, existingNames = []) {
+      guestNamesEl.innerHTML = "";
+      if (count === 0) return;
+
+      for (let i = 0; i < count; i++) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = `Guest ${i + 1} name`;
+        input.value = existingNames[i] || "";
+        guestNamesEl.appendChild(input);
+      }
+    }
+
+    // --- Load invite info ---
+    async function loadInvite() {
+      if (!inviteCode) return;
+
+      const { data: invite, error } = await db
+        .from("invites")
+        .select("*")
+        .eq("invite_code", inviteCode)
+        .single();
+
+      if (error || !invite) {
+        titleEl.textContent = "Invite not found";
+        return;
+      }
+
+      currentInvite = invite;
+      titleEl.textContent = `Welcome, ${invite.display_name}`;
+      detailsEl.textContent = `This invite allows up to ${invite.max_guests} guests.`;
+
+      selectEl.innerHTML = "";
+      for (let i = 0; i <= invite.max_guests; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        selectEl.appendChild(option);
+      }
+
+      // Check for existing RSVP
+      const { data: existingRsvp } = await db
+        .from("rsvps")
+        .select("*")
+        .eq("invite_id", invite.id)
+        .single();
+
+      if (existingRsvp) {
+        selectEl.value = existingRsvp.attending;
+        renderGuestNameInputs(existingRsvp.attending, existingRsvp.guest_names || []);
+        existingNoteEl.textContent = "You already responded — you can update your RSVP if needed.";
+      }
+
+      formEl.style.display = "block";
+    }
+
+    selectEl.addEventListener("change", () => {
+      const count = Number(selectEl.value);
+      renderGuestNameInputs(count);
+    });
+
+    // --- Submit RSVP ---
+    formEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const attending = Number(selectEl.value);
+      if (attending > currentInvite.max_guests) {
+        statusEl.textContent = "Invalid number of guests.";
+        return;
+      }
+
+      const guestNames = Array.from(guestNamesEl.querySelectorAll("input")).map(i => i.value);
+
+      statusEl.textContent = "Saving RSVP...";
+
+      const { error } = await db
+        .from("rsvps")
+        .upsert({
+          invite_id: currentInvite.id,
+          attending,
+          guest_names: guestNames
+        }, {
+          onConflict: "invite_id"
+        });
+
+      if (error) {
+        statusEl.textContent = "Something went wrong. Try again.";
+        return;
+      }
+
+      statusEl.textContent = "RSVP saved! 🎉 You can update it anytime.";
+    });
+  </script>
+</body>
+</html>

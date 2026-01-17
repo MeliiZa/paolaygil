@@ -1,0 +1,306 @@
+.great-vibes-regular {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+.style-script-regular {
+  font-family: "Style Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.petit-formal-script-regular {
+  font-family: "Petit Formal Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+body {
+      font-family: "Poppins", sans-serif;
+      /*padding: 40px;*/
+      /*max-width: 800px;*/
+      margin: auto;
+      color: #502F38;
+      background-color: #F3EEE8;
+    }
+
+    h1, .cursive{
+        font-family: "Petit Formal Script", cursive;
+    }
+    h1, h2 {
+      margin-bottom: 8px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    input, select, button {
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    #guest-names input {
+      display: block;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .masthead{
+        background-size: cover;
+        min-height: 60vh;
+        position: relative;
+        color: white;
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+    }
+
+    h1{
+        font-size: 4rem;
+
+    }
+
+    .color-overlay{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,.2);
+    }
+
+    .story{
+        color: #502F38;
+        font-size: 40px;
+    }
+
+    h3{
+        color: #502F38;
+        font-family: "Great Vibes", cursive;
+
+    }
+
+    .fa-solid{
+        font-size: 100px;
+    }
+    .icono{
+        margin-bottom: .5em;
+    }
+    .fa-envelope{
+      font-size: 50px;
+    }
+
+    .col-sm.detalles-text {
+    font-size: 22px;
+    }
+    .details-title{
+      font-size:50px;
+    }
+
+    .card{
+      height: 538px;
+    }
+    p.parrafo {
+    font-size: 22px;
+    }
+    h5.card-title.cursive {
+    font-size: 28px;
+    font-weight: 900;
+    }
+
+    div#rsvp-section {
+        margin-top: 3em;
+    }
+
+
+
+.button {
+    display: block;
+    background: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 500px;
+    font-weight: bold;
+    line-height: 25px;
+    color: #502F38 !important;
+}
+
+.button:hover {
+    color: white !important;
+    background: #502F38 !important;
+}
+
+.bold{
+  font-size:24px;
+}
+
+.bold2{
+  font-size:26px;
+}
+
+
+a {
+  text-decoration: none !important;
+}
+
+#title, #details, #existing-note{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+button {
+    background: #502F38;
+    color: white;
+    border-radius: 500px;
+    font-weight: 600;
+}
+
+    @media (max-width: 768px){
+        .masthead{
+            min-height: 30vh;
+        }
+
+        h1{
+            font-size: calc(1.525rem+3.3vw);
+        }
+
+        .card {
+            width: 400px !important;
+        }   
+        
+        .sky{
+            height:900px !important;
+        }
+        .couple{
+            height:700px !important;
+        }
+        .text-detail{
+            margin-bottom:30px;
+        }
+        .icono{
+            margin-top:.5em;
+            margin-bottom:0em !important;
+
+        }
+        .slogan{
+            height:300px !important;
+        }
+    }

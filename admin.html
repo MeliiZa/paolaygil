@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>RSVP Admin</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 40px;
+    }
+
+    .card {
+      max-width: 800px;
+      margin: auto;
+      display: none;
+    }
+
+    .invite {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
+    }
+
+    button {
+      margin-right: 8px;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    #lock {
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+
+    input {
+      padding: 8px;
+      font-size: 14px;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔒 LOCK SCREEN -->
+  <div id="lock">
+    <h2>Admin Access</h2>
+    <p class="muted">Enter password to continue</p>
+    <input id="password" type="password" placeholder="Password" />
+    <button id="unlock">Unlock</button>
+    <p id="lockError" class="muted"></p>
+  </div>
+
+  <!-- ADMIN CONTENT -->
+  <div class="card" id="admin">
+    <h1>RSVP Admin</h1>
+    <p id="total">Loading…</p>
+
+    <button id="downloadGuests">Download guest list (CSV)</button>
+    <button id="downloadStatus">Download invite status (CSV)</button>
+
+    <div id="list"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // 🔑 CHANGE THIS PASSWORD
+    const ADMIN_PASSWORD = "birthday2026";
+
+    const lockEl = document.getElementById("lock");
+    const adminEl = document.getElementById("admin");
+    const unlockBtn = document.getElementById("unlock");
+    const passwordInput = document.getElementById("password");
+    const lockError = document.getElementById("lockError");
+
+    unlockBtn.addEventListener("click", () => {
+      if (passwordInput.value === ADMIN_PASSWORD) {
+        lockEl.style.display = "none";
+        adminEl.style.display = "block";
+        loadAdmin();
+      } else {
+        lockError.textContent = "Incorrect password";
+      }
+    });
+
+    const db = supabase.createClient(
+      "https://javcvjdvnpmzoskqnxlk.supabase.co",
+      "sb_publishable_p_6Pj2HRuUfJxcWBG8nU5A_9soVjn0s"
+    );
+
+    const listEl = document.getElementById("list");
+    const totalEl = document.getElementById("total");
+
+    const downloadGuestsBtn = document.getElementById("downloadGuests");
+    const downloadStatusBtn = document.getElementById("downloadStatus");
+
+    let rsvpData = [];
+    let inviteData = [];
+
+    async function loadAdmin() {
+      const { data: rsvps } = await db
+        .from("rsvps")
+        .select(`
+          attending,
+          guest_names,
+          updated_at,
+          invites (
+            id,
+            display_name,
+            max_guests
+          )
+        `);
+
+      const { data: invites } = await db
+        .from("invites")
+        .select("id, display_name, max_guests");
+
+      rsvpData = rsvps || [];
+      inviteData = invites || [];
+
+      let totalGuests = 0;
+      listEl.innerHTML = "";
+
+      rsvpData.forEach(row => {
+        if (row.attending === 0) return;
+        if (!row.invites) return;
+
+        totalGuests += row.attending;
+
+        const div = document.createElement("div");
+        div.className = "invite";
+
+        div.innerHTML = `
+          <strong>${row.invites.display_name}</strong><br>
+          Attending: ${row.attending} / ${row.invites.max_guests}
+          <div class="muted">
+            Updated: ${new Date(row.updated_at).toLocaleString()}
+          </div>
+        `;
+
+        if (row.guest_names?.length) {
+          const ul = document.createElement("ul");
+          row.guest_names.forEach(name => {
+            const li = document.createElement("li");
+            li.textContent = name;
+            ul.appendChild(li);
+          });
+          div.appendChild(ul);
+        }
+
+        listEl.appendChild(div);
+      });
+
+      totalEl.textContent = `Total confirmed guests: ${totalGuests}`;
+    }
+
+    function downloadCSV(content, filename) {
+      const blob = new Blob([content], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    downloadGuestsBtn.addEventListener("click", () => {
+      let csv = "Family Name,Guest Name\n";
+
+      rsvpData.forEach(row => {
+        if (row.attending === 0 || !row.invites) return;
+        row.guest_names?.forEach(name => {
+          csv += `"${row.invites.display_name}","${name}"\n`;
+        });
+      });
+
+      downloadCSV(csv, "guest-list.csv");
+    });
+
+    downloadStatusBtn.addEventListener("click", () => {
+      let csv = "Family Name,Max Guests,Status\n";
+
+      inviteData.forEach(invite => {
+        const rsvp = rsvpData.find(r => r.invites?.id === invite.id);
+        let status = "no_response";
+        if (rsvp) status = rsvp.attending > 0 ? "confirmed" : "declined";
+        csv += `"${invite.display_name}",${invite.max_guests},${status}\n`;
+      });
+
+      downloadCSV(csv, "invite-status.csv");
+    });
+  </script>
+
+</body>
+</html>
