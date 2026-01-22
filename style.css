@@ -282,6 +282,11 @@ label{
   text-align:center;
 }
 
+h2#rsvp-title, #rsvp-details {
+  text-align: center;
+  
+}
+
 
     @media (max-width: 768px){
         .masthead{
