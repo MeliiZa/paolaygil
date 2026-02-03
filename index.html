@@ -155,104 +155,129 @@
 
 
 
-  <!-- ========================= -->
-  <!-- RSVP SECTION -->
-  <!-- ========================= -->
-  <div class="section card container d-flex flex-column justify-content-center align-items-center text-center" id="rsvp-section">
-      <h2 id="rsvp-title">Cargando...</h2>
-        <p id="rsvp-details"></p>
+<!-- ========================= -->
+<!-- RSVP SECTION -->
+<!-- ========================= -->
+<div
+  class="section card container d-flex flex-column justify-content-center align-items-center text-center"
+  id="rsvp-section"
+>
+  <h2 id="rsvp-title">Cargando...</h2>
+  <p id="rsvp-details"></p>
 
-    <form class="mx-auto" id="rsvp-form" style="display:none; margin-top:20px;">
-      <p id="existing-note" class="muted"></p>
+  <form
+    class="mx-auto"
+    id="rsvp-form"
+    style="display:none; margin-top:20px;"
+  >
+    <p id="existing-note" class="muted"></p>
 
+    <!-- ⭐ SOLO PARA INVITACIÓN DE 1 -->
+    <div id="single-invite" style="display:none;">
+      <p>¿Podrás asistir al evento?</p>
+      <button type="button" id="btn-yes">Sí</button>
+      <button type="button" id="btn-no">No</button>
+    </div>
+
+    <!-- NORMAL (2+) -->
+    <div id="multi-invite">
       <label>
-        Cuantas personas asistirán?
-        <br/>
+        ¿Cuántas personas asistirán?
+        <br />
         <select id="attending"></select>
       </label>
 
       <div id="guest-names" style="margin-top:16px;"></div>
-      <div class="button-box d-flex justify-content-center align-content-center"> 
-        <button type="submit">Confirma tu asistencia</button> 
+
+      <div class="button-box d-flex justify-content-center align-content-center">
+        <button type="submit">Confirma tu asistencia</button>
       </div>
+    </div>
+  </form>
 
-    </form>
+  <p id="status" style="margin-top:16px;"></p>
+</div>
 
-    <p id="status" style="margin-top:16px;"></p>
-  </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const db = supabase.createClient(
+    "https://javcvjdvnpmzoskqnxlk.supabase.co",
+    "sb_publishable_p_6Pj2HRuUfJxcWBG8nU5A_9soVjn0s"
+  );
 
-  <!-- ========================= -->
-  <!-- JS LOGIC -->
-  <!-- ========================= -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // --- 1. Create Supabase client ---
-    const db = supabase.createClient(
-      "https://javcvjdvnpmzoskqnxlk.supabase.co",
-      "sb_publishable_p_6Pj2HRuUfJxcWBG8nU5A_9soVjn0s"
-    );
+  const params = new URLSearchParams(window.location.search);
+  const inviteCode = params.get("code");
 
-    // --- 2. Read invite code from URL ---
-    const params = new URLSearchParams(window.location.search);
-    const inviteCode = params.get("code");
+  const heroTitleEl = document.getElementById("hero-title");
+  const heroDetailsEl = document.getElementById("hero-details");
+  const rsvpTitleEl = document.getElementById("rsvp-title");
+  const rsvpDetailsEl = document.getElementById("rsvp-details");
+  const formEl = document.getElementById("rsvp-form");
+  const selectEl = document.getElementById("attending");
+  const statusEl = document.getElementById("status");
+  const guestNamesEl = document.getElementById("guest-names");
+  const existingNoteEl = document.getElementById("existing-note");
 
-    const heroTitleEl = document.getElementById("hero-title");
-    const heroDetailsEl = document.getElementById("hero-details");
-    const rsvpTitleEl = document.getElementById("rsvp-title");
-    const rsvpDetailsEl = document.getElementById("rsvp-details");
-    const formEl = document.getElementById("rsvp-form");
-    const selectEl = document.getElementById("attending");
-    const statusEl = document.getElementById("status");
-    const guestNamesEl = document.getElementById("guest-names");
-    const existingNoteEl = document.getElementById("existing-note");
+  const singleInviteEl = document.getElementById("single-invite"); // ⭐
+  const multiInviteEl = document.getElementById("multi-invite"); // ⭐
+  const btnYes = document.getElementById("btn-yes"); // ⭐
+  const btnNo = document.getElementById("btn-no"); // ⭐
 
-    let currentInvite = null;
+  let currentInvite = null;
 
-    if (!inviteCode) {
-      // No code: generic view
-      heroTitleEl.textContent = "Bienvenid@! Por favor utiliza tu link especial y único para confirmar tu asistencia.";
-      rsvpTitleEl.textContent = "Bienvenid@! Por favor utiliza tu link especial y único para confirmar tu asistencia.";
-      formEl.style.display = "none";
+  if (!inviteCode) {
+    heroTitleEl.textContent =
+      "Bienvenid@! Por favor utiliza tu link especial y único para confirmar tu asistencia.";
+    rsvpTitleEl.textContent =
+      "Bienvenid@! Por favor utiliza tu link especial y único para confirmar tu asistencia.";
+    formEl.style.display = "none";
+  } else {
+    loadInvite();
+  }
+
+  function renderGuestNameInputs(count, existingNames = []) {
+    guestNamesEl.innerHTML = "";
+    if (count === 0) return;
+
+    for (let i = 0; i < count; i++) {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = `Nombre del invitado ${i + 1}`;
+      input.value = existingNames[i] || "";
+      guestNamesEl.appendChild(input);
+    }
+  }
+
+  async function loadInvite() {
+    const { data: invite, error } = await db
+      .from("invites")
+      .select("*")
+      .eq("invite_code", inviteCode)
+      .single();
+
+    if (error || !invite) {
+      rsvpTitleEl.textContent = "Invitación no encontrada";
+      return;
+    }
+
+    currentInvite = invite;
+
+    heroTitleEl.textContent = `Bienvenid@, ${invite.display_name}`;
+    rsvpTitleEl.textContent = `Bienvenid@, ${invite.display_name}`;
+
+    if (invite.max_guests === 1) {
+      heroDetailsEl.textContent = "Esta invitación es solo para ti";
+      rsvpDetailsEl.textContent = "Esta invitación es solo para ti";
+
+      singleInviteEl.style.display = "block";
+      multiInviteEl.style.display = "none";
     } else {
-      // Code present: load RSVP
-      loadInvite();
-    }
+      heroDetailsEl.textContent = `Incluye hasta ${invite.max_guests} personas`;
+      rsvpDetailsEl.textContent = `Incluye hasta ${invite.max_guests} personas`;
 
-    // --- Render guest name inputs ---
-    function renderGuestNameInputs(count, existingNames = []) {
-      guestNamesEl.innerHTML = "";
-      if (count === 0) return;
+      singleInviteEl.style.display = "none";
+      multiInviteEl.style.display = "block";
 
-      for (let i = 0; i < count; i++) {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.placeholder = `Nombre del Invitado ${i + 1}`;
-        input.value = existingNames[i] || "";
-        guestNamesEl.appendChild(input);
-      }
-    }
-
-    // --- Load invite info ---
-    async function loadInvite() {
-      if (!inviteCode) return;
-
-      const { data: invite, error } = await db
-        .from("invites")
-        .select("*")
-        .eq("invite_code", inviteCode)
-        .single();
-
-      if (error || !invite) {
-        titleEl.textContent = "Invite not found";
-        return;
-      }
-
-      currentInvite = invite;
-      heroTitleEl.textContent = `Bienvenid@s, ${invite.display_name}`;
-      rsvpTitleEl.textContent = `Bienvenid@s, ${invite.display_name}`;
-
-      heroDetailsEl.textContent = `Esta invitación incluye hasta ${invite.max_guests} invitados.`;
-      rsvpDetailsEl.textContent = `Esta invitación incluye hasta ${invite.max_guests} invitados.`;
       selectEl.innerHTML = "";
       for (let i = 0; i <= invite.max_guests; i++) {
         const option = document.createElement("option");
@@ -260,58 +285,86 @@
         option.textContent = i;
         selectEl.appendChild(option);
       }
-
-      // Check for existing RSVP
-      const { data: existingRsvp } = await db
-        .from("rsvps")
-        .select("*")
-        .eq("invite_id", invite.id)
-        .single();
-
-      if (existingRsvp) {
-        selectEl.value = existingRsvp.attending;
-        renderGuestNameInputs(existingRsvp.attending, existingRsvp.guest_names || []);
-        existingNoteEl.textContent = "Ya has confirmado tu asistencia - puedes actualizar los nombres de tus invitados en caso de ser necesario.";
-      }
-
-      formEl.style.display = "block";
     }
 
-    selectEl.addEventListener("change", () => {
-      const count = Number(selectEl.value);
-      renderGuestNameInputs(count);
-    });
+    const { data: existingRsvp } = await db
+      .from("rsvps")
+      .select("*")
+      .eq("invite_id", invite.id)
+      .single();
 
-    // --- Submit RSVP ---
-    formEl.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const attending = Number(selectEl.value);
-      if (attending > currentInvite.max_guests) {
-        statusEl.textContent = "Número invalido de invitados.";
-        return;
+    if (existingRsvp) {
+      if (invite.max_guests > 1) {
+        selectEl.value = existingRsvp.attending;
+        renderGuestNameInputs(
+          existingRsvp.attending,
+          existingRsvp.guest_names || []
+        );
       }
 
-      const guestNames = Array.from(guestNamesEl.querySelectorAll("input")).map(i => i.value);
+      existingNoteEl.textContent =
+        "Ya has confirmado tu asistencia. Puedes actualizarla si lo necesitas.";
+    }
 
-      statusEl.textContent = "Guardando tu información...";
+    formEl.style.display = "block";
+  }
 
-      const { error } = await db
-        .from("rsvps")
-        .upsert({
+  selectEl.addEventListener("change", () => {
+    renderGuestNameInputs(Number(selectEl.value));
+  });
+
+  // ⭐ RSVP simple (1 invitado)
+  async function submitSingle(attending) {
+    statusEl.textContent = "Guardando tu respuesta...";
+
+    const { error } = await db
+      .from("rsvps")
+      .upsert(
+        {
+          invite_id: currentInvite.id,
+          attending,
+          guest_names: []
+        },
+        { onConflict: "invite_id" }
+      );
+
+    statusEl.textContent = error
+      ? "Oops algo salió mal."
+      : "¡Gracias por tu respuesta! 💛";
+  }
+
+  btnYes.addEventListener("click", () => submitSingle(1));
+  btnNo.addEventListener("click", () => submitSingle(0));
+
+  // RSVP normal (2+)
+  formEl.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (currentInvite.max_guests === 1) return;
+
+    const attending = Number(selectEl.value);
+    const guestNames = Array.from(
+      guestNamesEl.querySelectorAll("input")
+    ).map(i => i.value.trim());
+
+    statusEl.textContent = "Guardando tu información...";
+
+    const { error } = await db
+      .from("rsvps")
+      .upsert(
+        {
           invite_id: currentInvite.id,
           attending,
           guest_names: guestNames
-        }, {
-          onConflict: "invite_id"
-        });
+        },
+        { onConflict: "invite_id" }
+      );
 
-      if (error) {
-        statusEl.textContent = "Oops algo salio mal. Vuelve a intentarlo de nuevo!.";
-        return;
-      }
+    statusEl.textContent = error
+      ? "Oops algo salió mal."
+      : "¡Asistencia confirmada! 🎉";
+  });
+</script>
 
-      statusEl.textContent = "Asistencia confirmada! 🎉 Ahora puedes modificar o actualizar los nombres en caso de ser necesario.";
-    });
-  </script>
+
 </body>
 </html>
