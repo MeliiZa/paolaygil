@@ -283,7 +283,7 @@ label{
 }
 
 button#btn-no, button#btn-yes {
-    width: 50px;
+    width: 50px !important;
 }
 
 
