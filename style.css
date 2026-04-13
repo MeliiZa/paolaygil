@@ -286,6 +286,9 @@ button#btn-no, button#btn-yes {
     width: 50px !important;
 }
 
+div#rsvp-section, .button {
+    visibility: hidden;
+}
 
     @media (max-width: 768px){
         .masthead{
